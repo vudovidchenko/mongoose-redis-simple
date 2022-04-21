@@ -7,7 +7,7 @@ Best Performance Mongoose caching module that works exactly how you would expect
 Install via NPM
 
 ```js
-npm install mongoose-redis --save
+npm install mongoose-redis-simple --save
 ```
 
 
@@ -16,17 +16,32 @@ npm install mongoose-redis --save
 ```js
 
 var mongoose = require('mongoose');
-var MongooseCache = require('mongoose-redis');
+var MongooseCache = require('mongoose-redis-simple');
 
 ```
-Config mongoose-redis cache
+Init mongoose-redis cache
+
+a. You can pass the Redis address as string   
 ```js
 
-var cache = MongooseCache(mongoose, "redis://127.0.0.1:6379");
+MongooseCache(mongoose, "redis://127.0.0.1:6379");
+
+```
+b. You can pass the Redis address as object   
+```js
+
+MongooseCache(mongoose, { host: 'localhost', port: 6379 });
+
+```
+c. You can pass the Redis client instance
+```js
+var redisClient = redis.createClient("redis://127.0.0.1:6379");
+
+MongooseCache(mongoose, { client: redisClient });
 
 ```
 
-
+Use cases
 ```js
 
 var docs = await Post.find({ stt: 1 }).sort({ crt: -1 })
